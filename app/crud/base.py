@@ -31,7 +31,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return db_obj
 
     def read(self, db: Session, *, id: Any) -> ModelType | None:
-        return db.query(self.model).get(id)
+        return db.query(self.model).filter(self.model.id == id).first()
 
     def read_multi(
         self, db: Session, *, skip: int = 0, limit: int = 100
